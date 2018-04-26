@@ -33,6 +33,8 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'devise'
+
 gem 'graphql', '1.7.14'
 
 # Reduces boot times through caching; required in config/boot.rb
