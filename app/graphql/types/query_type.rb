@@ -13,8 +13,13 @@ Types::QueryType = GraphQL::ObjectType.define do
 
   #listing all the users.
   field :users, types[Types::UserType] do
+    argument :page, types.Int, default_value: 1
+    argument :per_page, types.Int, default_value: 1
+
     description "User List"
-    resolve ->(obj, args, ctx) { User.all }
+    resolve ->(obj, args, ctx) do
+      User.page(args.page).per(args.per_page)
+    end
   end
 
   #user detail
@@ -23,6 +28,4 @@ Types::QueryType = GraphQL::ObjectType.define do
     description "User detail"
     resolve ->(obj, args, ctx) { User.find(args.id) }
   end
-
-
 end
