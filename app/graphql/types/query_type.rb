@@ -10,4 +10,19 @@ Types::QueryType = GraphQL::ObjectType.define do
       "Hello World!"
     }
   end
+
+  #listing all the users.
+  field :users, types[Types::UserType] do
+    description "User List"
+    resolve ->(obj, args, ctx) { User.all }
+  end
+
+  #user detail
+  field :user, Types::UserType do
+    argument :id, types.Int
+    description "User detail"
+    resolve ->(obj, args, ctx) { User.find(args.id) }
+  end
+
+
 end
