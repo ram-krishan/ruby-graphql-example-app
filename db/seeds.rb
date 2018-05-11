@@ -24,3 +24,8 @@ end
 [link2, link3].each do |link|
   link.votes.create(user: vijay)
 end
+
+
+100.times do |time|
+  User.create(first_name: 'User', last_name: "#{time}", email: "user.#{time}@yopmail.com", password: '12345678')
+end
