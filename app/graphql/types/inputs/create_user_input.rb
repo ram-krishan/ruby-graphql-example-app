@@ -1,4 +1,4 @@
-class Inputs::CreateUserInput < GraphQL::Schema::InputObject
+class Types::Inputs::CreateUserInput < Types::BaseInputObject
   graphql_name 'CREATE_USRE_INPUT'
 
   argument :first_name, String, 'First name of user', required: true

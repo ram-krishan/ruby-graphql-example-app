@@ -21,7 +21,7 @@ Mutations::CreateUser = GraphQL::Relay::Mutation.define do
   name "CreateUser"
   # TODO: define return fields
   return_field :user, Types::UserType
-  input_field :user, Inputs::CreateUserInput
+  input_field :user, Types::Inputs::CreateUserInput
 
   # input_field :first_name, !types.String
   # input_field :last_name, !types.String
