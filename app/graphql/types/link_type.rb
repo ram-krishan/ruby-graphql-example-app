@@ -1,8 +1,8 @@
-Types::LinkType = GraphQL::ObjectType.define do
-  name "Link"
+class Types::LinkType < Types::BaseObject
+  graphql_name "Link"
 
-  field :id, types.Int
-  field :url, types.String
-  field :description, types.String
-  field :user, Types::UserType
+  field :id, Integer, null: false
+  field :url, String, null: true
+  field :description, String, null: true
+  field :user, Types::UserType, null: true
 end

@@ -1,8 +1,8 @@
 # mutation {
 #   createUser(input: {
 #     user: {
-#       first_name: "ram"
-#       last_name: "krishan patidar"
+#       firstName: "ram"
+#       lastName: "krishan patidar"
 #       email: "ram@yopmail.com"
 #       password: "12345678"
 #     }
@@ -10,9 +10,9 @@
 #     user {
 #       email
 #       id
-#       first_name
-#       last_name
-#       full_name
+#       firstName
+#       lastName
+#       fullName
 #     }
 #   }
 # }

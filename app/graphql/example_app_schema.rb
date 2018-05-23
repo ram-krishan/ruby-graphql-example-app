@@ -1,4 +1,4 @@
-ExampleAppSchema = GraphQL::Schema.define do
+class ExampleAppSchema < GraphQL::Schema
   mutation(Types::MutationType)
   query(Types::QueryType)
 end

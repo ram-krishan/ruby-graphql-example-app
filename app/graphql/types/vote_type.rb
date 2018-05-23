@@ -1,7 +1,7 @@
-Types::VoteType = GraphQL::ObjectType.define do
-  name "Vote"
+class Types::VoteType  < Types::BaseObject
+  graphql_name "Vote"
 
-  field :id, types.Int
-  field :link, Types::LinkType
-  field :user, Types::UserType
+  field :id, Integer, null: false
+  field :link, Types::LinkType, null: false
+  field :user, Types::UserType, null: false
 end

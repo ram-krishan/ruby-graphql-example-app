@@ -1,25 +1,25 @@
-Types::UserType = GraphQL::ObjectType.define do
-  name "User"
-  field :id, types.Int
-  field :first_name, types.String
-  field :last_name, types.String
-  field :full_name, types.String do
-    resolve ->(user, args, ctx) { "Mr. #{user.first_name} #{user.last_name}" }
+class Types::UserType < Types::BaseObject
+  field :id, Integer, null: true
+  field :first_name, String, null: true
+  field :last_name, String, null: true
+  field :full_name, String, null: true
+
+  def full_name
+    "Mr. #{object.first_name} #{object.last_name}"
   end
-  field :email, types.String
-  field :mobile_number, types.String
+  field :email, String, null: true
+  field :mobile_number, String, null: true
 
-  field :links, -> { types[Types::LinkType] } do
-    resolve ->(user, args, ctx) do
-      user.links
-    end
+  def links
+    object.links
   end
 
-  # field :votes,[Types::VoteType] do
-  # above link will is not work. raising below error.
-  # GraphQL::Schema::InvalidTypeError (Field Query.users's return type is invalid: field "votes" type must return GraphQL::BaseType, not Array ([Vote]))
+  field :links, [Types::LinkType, null: true], null: true
 
-  field :votes,-> { types[Types::VoteType] }  do
-    resolve ->(user, args, ctx) { user.votes }
+
+  field :votes, [Types::VoteType], null: true
+
+  def votes
+    object.votes
   end
 end

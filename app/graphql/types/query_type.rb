@@ -20,7 +20,7 @@ Types::QueryType = GraphQL::ObjectType.define do
   field :user, Queries::UserDetail, type: Types::UserType
 
   #user detail
-  field :userProfile, Queries::UserProfile
+  field :userProfile, Queries::UserProfile, type: Types::UserType
 
 
 
