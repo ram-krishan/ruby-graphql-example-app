@@ -14,23 +14,24 @@
 #       lastName
 #       fullName
 #     }
+#     errorMessages
 #   }
 # }
 
-Mutations::CreateUser = GraphQL::Relay::Mutation.define do
-  name "CreateUser"
-  # TODO: define return fields
-  return_field :user, Types::UserType
-  input_field :user, Types::Inputs::CreateUserInput
+class Mutations::CreateUser < Mutations::BaseMutation
+  graphql_name "CreateUser"
 
-  # input_field :first_name, !types.String
-  # input_field :last_name, !types.String
-  # input_field :email, !types.String
-  # input_field :mobile_number, types.String
-  # input_field :password, !types.String
+  field :user, Types::UserType, null: false
+  field :error_messages, [String], null: false
 
-  resolve ->(obj, args, ctx) {
-    user = User.create(args.user.to_h)
-    { user: user }
-  }
+  argument :user, Types::Inputs::CreateUserInput, required: true
+
+  def resolve(user:)
+    u = User.new(user.to_h)
+    if u.save
+      { user: u, error_messages: [] }
+    else
+      { user: u, error_messages: u.errors.full_messages }
+    end
+  end
 end

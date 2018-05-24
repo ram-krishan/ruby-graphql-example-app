@@ -10,12 +10,13 @@ class Types::UserType < Types::BaseObject
   field :email, String, null: true
   field :mobile_number, String, null: true
 
-  def links
-    object.links
-  end
+
 
   field :links, [Types::LinkType, null: true], null: true
 
+  def links
+    object.links
+  end
 
   field :votes, [Types::VoteType], null: true
 

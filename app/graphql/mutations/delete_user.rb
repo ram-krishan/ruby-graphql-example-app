@@ -1,15 +1,17 @@
-Mutations::DeleteUser = GraphQL::Relay::Mutation.define do
-  name "DeleteUser"
-  # TODO: define return fields
-  return_field :user, Types::UserType
+class Mutations::DeleteUser < Mutations::BaseMutation
+  graphql_name "DeleteUser"
 
-  # TODO: define arguments
-  # input_field :name, !types.String
-  input_field :id, types.Int
+  field :user, Types::UserType, null: false
+  field :error_messages, [String], null: false
 
-  resolve ->(obj, args, ctx) {
-    # TODO: define resolve function
-    user = User.find(args.id).destroy
-    { user: user }
-  }
+  argument :id, Integer, required: true
+
+  def resolve(id:)
+    u = User.find(id)
+    if u.destroy
+      { user: u, error_messages: [] }
+    else
+      { user: u, error_messages: u.errors.full_messages }
+    end
+  end
 end

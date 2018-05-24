@@ -1,7 +1,7 @@
-Types::MutationType = GraphQL::ObjectType.define do
-  name "Mutation"
+class Types::MutationType < Types::BaseObject
+  graphql_name "Mutation"
 
-  field :deleteUser, Mutations::DeleteUser.field
-  field :updateUser, Mutations::UpdateUser.field
-  field :createUser, Mutations::CreateUser.field
+  field :deleteUser, mutation: Mutations::DeleteUser
+  field :updateUser, mutation: Mutations::UpdateUser
+  field :createUser, mutation: Mutations::CreateUser
 end

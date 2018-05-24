@@ -1,5 +1,4 @@
-Types::QueryType = GraphQL::ObjectType.define do
-  name "Query"
+class Types::QueryType < Types::BaseObject
   # Add root-level fields here.
   # They will be entry points for queries on your schema.
 
@@ -17,11 +16,17 @@ Types::QueryType = GraphQL::ObjectType.define do
   # end
 
   #user detail
-  field :user, Queries::UserDetail, type: Types::UserType
+  field :user, type: Types::UserType,  null: true do
+    argument :id, Integer, required: true
+  end
+
+  def user(id:)
+    User.find(id)
+  end
 
   #user detail
-  field :userProfile, Queries::UserProfile, type: Types::UserType
-
+  #field :user_profile, type: Types::UserType, resolve: ->(obj, args, ctx) { ctx[:current_user]  }, null: false
+  field :user_profile, function: Functions::UserProfile.new
 
 
   # {
@@ -48,10 +53,9 @@ Types::QueryType = GraphQL::ObjectType.define do
   #  }
   #pagination on user list using graphQL.
   # http://graphql-ruby.org/relay/connections.html
-  connection :users, Types::UserType.connection_type, max_page_size: 10 do
-    # Return an Array or ActiveRecord::Relation
-    resolve ->(obj, args, ctx) {
-      User.all
-    }
+  field :users, Types::UserType.connection_type, max_page_size: 10, null: true, connection: true
+
+  def users
+    User.all
   end
 end
